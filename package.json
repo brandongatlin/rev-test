@@ -1,11 +1,10 @@
 {
     "scripts": {
-      "start": "concurrently \"node server/index.js\" \"cd client && npm run dev\"",
-      "server": "node server/index.js",
-      "client": "react-scripts start",
-      "build": "cd client && npm run build",
-      "render-build": "npm install && npm run build"
-      
+        "start": "concurrently \"node server/index.js\" \"cd client && npm run dev\"",
+        "server": "node server/index.js",
+        "client": "react-scripts start",
+        "build": "cd client && npm run build",
+        "render-build": "npm install && npm run build"
     },
     "devDependencies": {
         "concurrently": "^8.2.2"

@@ -8,7 +8,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer } from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
 import typeDefs from './graphql/schema.js';
 import resolvers from './graphql/resolvers.js';
 import authRoutes from './routes/auth.js';
@@ -25,6 +26,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(helmet());
+
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(morgan('common'));
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
@@ -60,7 +62,7 @@ const server = new ApolloServer({
 });
 
 await server.start();
-server.applyMiddleware({ app });
+app.use('/graphql', expressMiddleware(server));
 
 console.log(process.env.MONGO_URL);
 
